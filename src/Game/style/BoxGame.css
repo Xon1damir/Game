@@ -23,9 +23,58 @@
 .game-area .box.default {
   background-color: rgb(216, 216, 226);
 }
+/*  White ga teng bo'lgan boxga style */
 
-.game-area .box.default .circle {
-  background-color: rgb(138, 138, 228);
+.game-area .box.white {
+  background-color: rgb(216, 216, 226);
+}
+
+.game-area .box.white .circle {
+  background-color: white;
+}
+
+/* Black ga teng bo'lgan boxga style */
+
+.game-area .box.black {
+  background-color: rgb(216, 216, 226);
+}
+
+.game-area .box.black .circle {
+  background-color: black;
+}
+/* Red ga teng bo'lgan boxga style */
+.game-area .box.red {
+  background-color: rgb(216, 216, 226);
+}
+
+.game-area .box.red .circle {
+  background-color: red;
+}
+/* Green ga teng bo'lgan boxga style */
+
+.game-area .box.green {
+  background-color: rgb(216, 216, 226);
+}
+
+.game-area .box.green .circle {
+  background-color: green;
+}
+
+/* Blue ga teng bo'lgan boxga style */
+.game-area .box.blue {
+  background-color: rgb(216, 216, 226);
+}
+
+.game-area .box.blue .circle {
+  background-color: blue;
+}
+/* Yellow ga teng bo'lgan boxga style */
+.game-area .box.yellow {
+  background-color: rgb(216, 216, 226);
+}
+
+.game-area .box.yellow .circle {
+  background-color: yellow;
 }
 
 .circle {
