@@ -1,0 +1,38 @@
+.box-game-container {
+  padding: 40px;
+}
+
+.box-game-container .game-area {
+  display: flex;
+  flex-wrap: wrap;
+  width: 450px;
+  border: 2px solid black;
+  padding: 1px;
+  padding-top: 4px;
+}
+
+.game-area .box {
+  flex: 1 0 8%;
+  height: 34px;
+  width: 34px;
+  border: 2px solid black;
+  margin: 2px;
+  padding: 1px;
+}
+
+.game-area .box.default {
+  background-color: rgb(216, 216, 226);
+}
+
+.game-area .box.default .circle {
+  background-color: rgb(138, 138, 228);
+}
+
+.circle {
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  background-color: white;
+  color: black;
+  margin-left: 2px;
+}
