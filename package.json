@@ -2,7 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://xon1damir.github.io/Game/",
+  "homepage": "https://xon1damir.github.io",
   "dependencies": {
     "cra-template": "1.1.3",
     "react": "^18.0.0",
