@@ -32,13 +32,7 @@ class BoxGame extends react.Component {
     };
     this.selectChosen = this.selectChosen.bind(this);
   }
-
   selectChosen(id) {
-    if (id) {
-      console.log(id);
-    } else {
-      console.log("yoq");
-    }
     this.setState({
       chosen_id: id,
     });
@@ -54,18 +48,13 @@ class BoxGame extends react.Component {
           <Box
             id={box.id}
             color={box.color}
-            selectChosen={this.selectChosen}
+            handleClick={this.selectChosen}
             chosen_id={this.state.chosen_id}
           />
         );
       } else {
         boxes.push(
-          <Box
-            id={i + 1}
-            color="default"
-            selectChosen={this.selectChosen}
-            chosen_id={this.state.chosen_id}
-          />
+          <Box id={i + 1} color="default" handleClick={this.selectChosen} />
         );
       }
     }
@@ -87,7 +76,7 @@ const Box = (props) => {
       className={"box " + props.color + " " + selectChosenStyle}
       id={"box" + props.id}
       onClick={() => {
-        props.selectChosen(props.id);
+        props.handleClick(props.id);
       }}
     >
       <div className="circle"></div>
