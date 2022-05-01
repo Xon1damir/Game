@@ -85,17 +85,6 @@ class BoxGame extends react.Component {
     return box;
   }
   componentDidMount() {
-    // adding first 5 random boxes
-    // let randomBoxes = this.state.colored_boxes;
-    // for (let i = 0; i < 5; i++) {
-    //   randomBoxes.push({
-    //     id: Math.floor(Math.random() * 81),
-    //     color: colors[Math.floor(Math.random() * colors.length)],
-    //   });
-    // }
-    // this.setState({
-    //   colored_boxes: randomBoxes,
-    // });
     this.insertRandomBoxes(5);
   }
   render() {
