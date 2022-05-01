@@ -7,54 +7,113 @@ class BoxGame extends react.Component {
     super(props);
     this.state = {
       chosen_id: 0,
-      colored_boxes: [
-        {
-          id: Math.floor(Math.random() * 81),
-          color: colors[Math.floor(Math.random() * colors.length)],
-        },
-        {
-          id: Math.floor(Math.random() * 81),
-          color: colors[Math.floor(Math.random() * colors.length)],
-        },
-        {
-          id: Math.floor(Math.random() * 81),
-          color: colors[Math.floor(Math.random() * colors.length)],
-        },
-        {
-          id: Math.floor(Math.random() * 81),
-          color: colors[Math.floor(Math.random() * colors.length)],
-        },
-        {
-          id: Math.floor(Math.random() * 81),
-          color: colors[Math.floor(Math.random() * colors.length)],
-        },
-      ],
+      colored_boxes: [],
     };
-    this.selectChosen = this.selectChosen.bind(this);
+    this.boxClickHandler = this.boxClickHandler.bind(this);
+    this.insertRandomBoxes = this.insertRandomBoxes.bind(this);
   }
-  selectChosen(id) {
+  insertRandomBoxes(numberOfBoxes) {
+    let randomBoxes = this.state.colored_boxes;
+    let randomId = Math.floor(Math.random() * 81);
+    let findColoredBox = this.findColoredBox(randomId);
+    if (!findColoredBox) {
+      for (let i = 0; i < numberOfBoxes; i++) {
+        randomBoxes.push({
+          id: randomId,
+          color: colors[Math.floor(Math.random() * colors.length)],
+        });
+      }
+    }
+
     this.setState({
-      chosen_id: id,
+      colored_boxes: randomBoxes,
     });
+  }
+  boxClickHandler(id) {
+    let box2 = this.findColoredBox(id);
+    let new_colored_boxes = this.state.colored_boxes;
+    let new_chosen_id = box2 ? id : 0;
+
+    // moving the box
+    if (this.isMoveable(this.state.chosen_id, id)) {
+      let box1 = this.findColoredBox(this.state.chosen_id);
+
+      this.insertRandomBoxes(5);
+
+      new_chosen_id = 0;
+
+      new_colored_boxes = new_colored_boxes.map((box, _) => {
+        if (box.id == box1.id) {
+          return {
+            ...box,
+            id: id,
+          };
+        } else if (box2 && box.id == box2.id) {
+          return {
+            ...box,
+            id: this.state.chosen_id,
+          };
+        }
+        return box;
+      });
+    }
+
+    // updating the state
+    this.setState({
+      colored_boxes: new_colored_boxes,
+      chosen_id: new_chosen_id,
+    });
+  }
+  isMoveable(index1, index2) {
+    let number = 9;
+    if (!index1 || !index2) return false;
+
+    if (index2 == index1 + 1 && index1 % number !== 0) return true;
+
+    if (index2 == index1 - 1 && index2 % number !== 0) return true;
+
+    if (index1 == index2 + 9) return true;
+
+    if (index1 == index2 - 9) return true;
+
+    return false;
+  }
+  findColoredBox(id) {
+    let box = this.state.colored_boxes.filter((colored_box, j) => {
+      return colored_box.id == id;
+    })[0];
+    return box;
+  }
+  componentDidMount() {
+    // adding first 5 random boxes
+    // let randomBoxes = this.state.colored_boxes;
+    // for (let i = 0; i < 5; i++) {
+    //   randomBoxes.push({
+    //     id: Math.floor(Math.random() * 81),
+    //     color: colors[Math.floor(Math.random() * colors.length)],
+    //   });
+    // }
+    // this.setState({
+    //   colored_boxes: randomBoxes,
+    // });
+    this.insertRandomBoxes(5);
   }
   render() {
     let boxes = [];
     for (let i = 0; i < 81; i++) {
-      let box = this.state.colored_boxes.filter((colored_box, j) => {
-        return colored_box.id == i + 1;
-      })[0];
+      let box = this.findColoredBox(i + 1);
       if (box) {
         boxes.push(
           <Box
             id={box.id}
             color={box.color}
-            handleClick={this.selectChosen}
+            handleClick={this.boxClickHandler}
             chosen_id={this.state.chosen_id}
           />
         );
       } else {
         boxes.push(
-          <Box id={i + 1} color="default" handleClick={this.selectChosen} />
+          <Box id={i + 1} color="default" handleClick={this.boxClickHandler} />
         );
       }
     }
