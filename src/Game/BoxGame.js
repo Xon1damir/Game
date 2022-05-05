@@ -11,20 +11,28 @@ class BoxGame extends react.Component {
     };
     this.boxClickHandler = this.boxClickHandler.bind(this);
     this.insertRandomBoxes = this.insertRandomBoxes.bind(this);
+    this.check = this.check.bind(this);
   }
+
+  check() {}
   insertRandomBoxes(numberOfBoxes) {
     let randomBoxes = this.state.colored_boxes;
-    let randomId = Math.floor(Math.random() * 81);
-    let findColoredBox = this.findColoredBox(randomId);
-    if (!findColoredBox) {
-      for (let i = 0; i < numberOfBoxes; i++) {
-        randomBoxes.push({
-          id: randomId,
-          color: colors[Math.floor(Math.random() * colors.length)],
-        });
+    for (let i = 0; i < numberOfBoxes; i++) {
+      // finding free box id
+      let randomId = Math.floor(Math.random() * 81);
+      let findColoredBox = this.findColoredBox(randomId);
+      while (findColoredBox) {
+        randomId = Math.floor(Math.random() * 81);
+        findColoredBox = this.findColoredBox(randomId);
       }
-    }
 
+      // insert new box
+      randomBoxes.push({
+        id: randomId,
+        color: colors[Math.floor(Math.random() * colors.length)],
+      });
+    }
+    // updating the state
     this.setState({
       colored_boxes: randomBoxes,
     });
@@ -39,7 +47,7 @@ class BoxGame extends react.Component {
       let box1 = this.findColoredBox(this.state.chosen_id);
 
       this.insertRandomBoxes(5);
-
+      this.check();
       new_chosen_id = 0;
 
       new_colored_boxes = new_colored_boxes.map((box, _) => {
