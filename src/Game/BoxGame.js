@@ -14,7 +14,84 @@ class BoxGame extends react.Component {
     this.check = this.check.bind(this);
   }
 
-  check() {}
+  check(box) {
+    // bosilgan boxning rangi va idsini bilib olish
+    let color = box.color;
+    let id = box.id;
+    // surilgan boxni keyingisining color va idsini bilib olish
+    let nextBox = this.findColoredBox(id + 1);
+    let nextColor = nextBox.color;
+    let nextId = nextBox.id;
+    // surilgan boxni undan oldingisining color va idsini bilib olish
+    let oldBox = this.findColoredBox(id - 1);
+    let oldColor = oldBox.color;
+    let oldId = oldBox.id;
+    // surilgan boxning tepasini color va idsini   bilib olish
+    let topBox = this.findColoredBox(id - 9);
+    let topColor = topBox.color;
+    let topId = topBox.id;
+    // surilgan boxning pastgi qismini color va idsini bilib olish
+    let bottomBox = this.findColoredBox(id + 9);
+    let bottomColor = bottomBox.color;
+    let bottomId = bottomBox.id;
+    console.log(nextId + " bitaa keyingining idsi");
+    console.log(oldId + " bitta oldingining idsi");
+
+    // surilgan boxning colorini undan keyingisining colori bilan tekshirish
+    if (color == nextColor) {
+      let nextBox2 = this.findColoredBox(nextId + 1);
+      let nextColor2 = nextBox2.color;
+      let nextId2 = nextBox2.id;
+      console.log(nextId2 + " 2 ta keyingisining idsi");
+      // Agar shart bajarilsa, surilgan boxning colorini undan 2 keyingisining colori bilan tekshirish
+      if (nextColor2 == color) {
+        // Agar shart bajarilsa alert chiqadi, chiqmasa else if shartiga o'tib ketadi
+        alert("O'ng tomondan 3 ta bir xil rang");
+      }
+    } // surilgan boxning colorni undan oldingi boxning colori bilan tekshirish
+    else if (color == oldColor) {
+      // surilgan boxdan 2-ta oldingi boxni colori va idsini bilib olish
+      let oldBox2 = this.findColoredBox(oldId - 1);
+      let oldColor2 = oldBox2.color;
+      let oldId2 = oldBox2.id;
+      console.log(oldId2 + " 2 ta oldingisining id si");
+      // Agar shart bajarilsa, surilgan boxning colorini undan 2 ta oldingi boxning colori bilan tekshirish
+      if (color == oldColor2) {
+        //Agar shart bajarilsa alert chiqadi
+        alert("Chap tomondan 3-ta bir xil rang");
+      }
+    } else if (color == topColor) {
+      // Agar shart bajarilsa, surilgan boxning 2-ta tepadagi boxning colori va idsini bilib olish
+      let topBox2 = this.findColoredBox(topId - 9);
+      let topColor2 = topBox2.color;
+      let topId2 = topBox2.id;
+      if (color == topColor2) {
+        //Agar shart bajarilsa alert chiqadi
+        alert("Tepadan 3-ta bir xil rang");
+      }
+    } else if (color == bottomColor) {
+      // Agar shart bajarilsa, surilgan boxning 2-ta pastdagi boxning colori va idsini bilib olish
+      let bottomBox2 = this.findColoredBox(bottomId + 9);
+      let bottomColor2 = bottomBox2.color;
+      let bottomId2 = bottomBox2.id;
+      if (color == bottomColor2) {
+        // Agar shart bajarilsa, alert chiqadi
+        alert("Bottom 3-ta bir xil rang");
+      }
+    }
+
+    // keyingi o'ngdagi boxni topaman
+
+    // topilgan boxni colorini color bn solishtiraman
+
+    // agar o'xshash bo'lsa:
+    // undan kngi o'ngdagi boxni olaman
+    // undan kngi o'ngdagi boxni colorini solishtiraman
+    // agar o'xshash bo'lsa (3 ta box bir xil degani): console log qilaman
+    // o'xshash bo'lmasa, chapga qarab boshlayman
+    // undan oldingi chap tomondagi boxni olaman
+    //
+  }
   insertRandomBoxes(numberOfBoxes) {
     let randomBoxes = this.state.colored_boxes;
     for (let i = 0; i < numberOfBoxes; i++) {
@@ -47,7 +124,6 @@ class BoxGame extends react.Component {
       let box1 = this.findColoredBox(this.state.chosen_id);
 
       this.insertRandomBoxes(5);
-      this.check();
       new_chosen_id = 0;
 
       new_colored_boxes = new_colored_boxes.map((box, _) => {
@@ -65,12 +141,12 @@ class BoxGame extends react.Component {
         return box;
       });
     }
-
     // updating the state
     this.setState({
       colored_boxes: new_colored_boxes,
       chosen_id: new_chosen_id,
     });
+    this.check(box2);
   }
   isMoveable(index1, index2) {
     let number = 9;
